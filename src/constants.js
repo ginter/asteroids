@@ -1,0 +1,4 @@
+export const TURN_SHIP_LEFT = 'TURN_SHIP_LEFT';
+export const TURN_SHIP_RIGHT = 'TURN_SHIP_LEFT';
+export const MOVE_SHIP_FORWARD = 'TURN_SHIP_LEFT';
+export const MOVE_SHIP_BACKWARD = 'TURN_SHIP_LEFT';

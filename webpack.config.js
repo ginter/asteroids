@@ -1,5 +1,6 @@
 module.exports = {
-  entry: './main.js',
+  devtool: 'eval',
+  entry: './src/index.js',
   output: {
     filename: 'bundle.js'
   },
@@ -10,7 +11,7 @@ module.exports = {
       exclude: /node_modules/,
       loader: 'babel-loader',
       query: {
-        presets: ['es2015', 'react']
+        presets: ['react', 'stage-0', 'es2015']
       }
     }
     ]
