@@ -35,7 +35,7 @@ class App extends React.Component {
 
     switch(e.key) {
       case 'ArrowUp': dispatch(moveShipForward()); break;
-      case 'ArrowBottom': dispatch(moveShipBackward()); break;
+      case 'ArrowDown': dispatch(moveShipBackward()); break;
       case 'ArrowRight': dispatch(turnShipRight()); break;
       case 'ArrowLeft': dispatch(turnShipLeft()); break;
     }
