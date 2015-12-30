@@ -1,3 +1,1 @@
-export function moveShipUp() {
-  return type: 
-}
+export * from './ship';

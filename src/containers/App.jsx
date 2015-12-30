@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
 import Board from '../components/Board.jsx';
-import { moveShipUp, moveShipRight, moveShipBottom, moveShipLeft } from '../actions';
+import { moveShipForward, moveShipBackward, turnShipRight, turnShipLeft } from '../actions';
 
 const styles = {
   width: '100%',
@@ -14,7 +15,13 @@ const styles = {
   background: 'black'
 };
 
-export default class App extends React.Component {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+  }
+
   componentDidMount() {
     ReactDOM.findDOMNode(this.refs.board).focus();
   }
@@ -27,10 +34,12 @@ export default class App extends React.Component {
     const { dispatch } = this.props;
 
     switch(e.key) {
-      case 'ArrowUp': dispatch(moveShipUp); break;
-      case 'ArrowRight': dispatch(moveShipRight); break;
-      case 'ArrowBottom': dispatch(moveShipBottom); break;
-      case 'ArrowLeft': dispatch(moveShipLeft); break;
+      case 'ArrowUp': dispatch(moveShipForward()); break;
+      case 'ArrowBottom': dispatch(moveShipBackward()); break;
+      case 'ArrowRight': dispatch(turnShipRight()); break;
+      case 'ArrowLeft': dispatch(turnShipLeft()); break;
     }
   }
 }
+
+export default connect(state => state)(App)

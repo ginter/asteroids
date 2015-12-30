@@ -1,23 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const styles = {
-  background: 'white',
-  width: '20px',
-  height: '20px',
-  position: 'absolute',
-};
-
 class Ship extends React.Component {
+  styles() {
+    return {
+      background: 'white',
+      width: '20px',
+      height: '20px',
+      position: 'absolute',
+      top: this.props.ship.y,
+      left: this.props.ship.x,
+      transform: `rotate(${this.props.ship.direction}deg)`
+    };
+
+  }
 
   render() {
-    styles.top = this.props.position.top;
-    styles.right = this.props.position.right;
-    styles.bottom = this.props.position.bottom;
-    styles.left = this.props.position.left;
-
-    return <div style={styles}></div>;
+    return <div style={this.styles()}></div>;
   }
 }
 
-export default connect(state => ({ position: state.ship.position }))(Ship)
+export default connect(state => ({ ship: state.ship }))(Ship)
