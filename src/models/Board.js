@@ -26,4 +26,8 @@ export default class Board {
   moveShipBackward() {
     return new Board(this.width, this.height, this.ship.moveBackward())
   }
+
+  turnShipLeft() {
+    return new Board(this.width, this.height, this.ship.turnLeft())
+  }
 }
