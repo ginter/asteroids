@@ -8,7 +8,7 @@ function wrap(coord, max) {
 }
 
 export default class Board {
-  constructor(width = window.innerWidth, height = window.innerHeight, ship = new Ship()) {
+  constructor(width=window.innerWidth, height=window.innerHeight, ship=new Ship()) {
     this.width = width;
     this.height = height;
     this.ship = ship;
@@ -29,5 +29,9 @@ export default class Board {
 
   turnShipLeft() {
     return new Board(this.width, this.height, this.ship.turnLeft())
+  }
+
+  turnShipRight() {
+    return new Board(this.width, this.height, this.ship.turnRight())
   }
 }

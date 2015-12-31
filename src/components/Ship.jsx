@@ -22,4 +22,4 @@ class Ship extends React.Component {
   }
 }
 
-export default connect(state => ({ board: state.board }))(Ship)
+export default connect(state => ({ board: state.game.board }))(Ship)

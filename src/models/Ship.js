@@ -45,6 +45,17 @@ export default class Ship {
     };
     return new Ship(newPlacement);
   }
+
+  turnRight() {
+    const newPlacement = {
+      x: this.x,
+      y: this.y,
+      speed: this.speed,
+      turningSpeed: this.turningSpeed,
+      direction: this.direction + this.turningSpeed
+    };
+    return new Ship(newPlacement);
+  }
 }
 
 function degToRad(deg) {
