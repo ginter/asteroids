@@ -1,3 +1,5 @@
+import { degToRad } from '../helpers/degToRad.js';
+
 const defaultPlacement = { x: 0, y: 0, direction: 45, speed: 5 };
 const maxSpeed = 25;
 const minSpeed = 1;
@@ -77,8 +79,4 @@ export default class Ship {
     };
     return new Ship(newPlacement);
   }
-}
-
-function degToRad(deg) {
-  return deg*Math.PI/180;
 }

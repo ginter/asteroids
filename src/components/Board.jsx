@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Ship from './Ship.jsx';
+import Asteroid from './Asteroid.jsx';
 import SpeedControl from './SpeedControl.jsx';
 
 export default class Board extends React.Component {
@@ -22,6 +23,7 @@ export default class Board extends React.Component {
     return (
       <div style={this.styles()} {...this.props}>
         <Ship/>
+        {this.props.board.asteroids.map(a => <Asteroid key={a.id} asteroid={a}/>)}
         <SpeedControl/>
         <a
           contentEditable={false}

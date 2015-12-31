@@ -40,6 +40,9 @@ export default class Game {
     if (this.pressedKeys['ArrowUp']) board = board.moveShipForward();
     if (this.pressedKeys['ArrowDown']) board = board.moveShipBackward();
 
+    board = board.spawnAsteroids();
+    board = board.moveAsteroidsForward();
+
     return board;
   }
 }

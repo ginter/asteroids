@@ -14,17 +14,19 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    ReactDOM.findDOMNode(this.refs.board).focus();
+    const el = ReactDOM.findDOMNode(this.refs.focus);
+    el.addEventListener('blur', function(e) { setTimeout(() => this.focus(), 1) }, true);
+    el.focus();
+
     window.requestAnimationFrame(this.handleTick);
   }
 
   render () {
     return(
-      <Board
-        ref='board'
-        contentEditable
-        onKeyDown={this.handleKeyDown}
-        onKeyUp={this.handleKeyUp}/>
+      <div>
+        <Board/>
+        <input ref='focus' onKeyDown={this.handleKeyDown} onKeyUp={this.handleKeyUp}/>
+      </div>
     );
   }
 
