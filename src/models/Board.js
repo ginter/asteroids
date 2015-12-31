@@ -19,6 +19,10 @@ export default class Board {
     return { left: wrap(x, this.width), top: wrap(y, this.height), direction: direction };
   }
 
+  shipSpeed() {
+    return this.ship.speed;
+  }
+
   moveShipForward() {
     return new Board(this.width, this.height, this.ship.moveForward())
   }
@@ -33,5 +37,13 @@ export default class Board {
 
   turnShipRight() {
     return new Board(this.width, this.height, this.ship.turnRight())
+  }
+
+  increaseShipSpeed() {
+    return new Board(this.width, this.height, this.ship.increaseSpeed())
+  }
+
+  decreaseShipSpeed() {
+    return new Board(this.width, this.height, this.ship.decreaseSpeed())
   }
 }

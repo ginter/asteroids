@@ -15,7 +15,6 @@ class Ship extends React.Component {
       left: shipPlacement.left,
       transform: `rotate(${shipPlacement.direction}deg)`
     };
-
   }
 
   render() {

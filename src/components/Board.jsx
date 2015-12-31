@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Ship from './Ship.jsx';
+import SpeedControl from './SpeedControl.jsx';
 
 export default class Board extends React.Component {
   styles() {
@@ -21,6 +22,7 @@ export default class Board extends React.Component {
     return (
       <div style={this.styles()} {...this.props}>
         <Ship />
+        <SpeedControl/>
       </div>
     );
   }

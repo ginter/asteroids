@@ -24,6 +24,14 @@ export default class Game {
     return new Game(this.board, pressedKeys);
   }
 
+  increaseShipSpeed() {
+    return new Game(this.board.increaseShipSpeed(), this.pressedKeys);
+  }
+
+  decreaseShipSpeed() {
+    return new Game(this.board.decreaseShipSpeed(), this.pressedKeys);
+  }
+
   updateBoard() {
     let board = this.board;
 
