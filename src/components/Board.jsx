@@ -21,8 +21,15 @@ export default class Board extends React.Component {
   render() {
     return (
       <div style={this.styles()} {...this.props}>
-        <Ship />
+        <Ship/>
         <SpeedControl/>
+        <a
+          contentEditable={false}
+          style={{ color: 'white', position: 'absolute', right: 0, bottom: 0 }}
+          href='https://github.com/ginter/asteroids'
+          target='_blank'>
+          View on Github
+        </a>
       </div>
     );
   }
