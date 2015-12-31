@@ -1,4 +1,4 @@
 import { combineReducers } from 'redux';
-import ship from './ship';
+import board from './board';
 
-export default combineReducers({ ship });
+export default combineReducers({ board });

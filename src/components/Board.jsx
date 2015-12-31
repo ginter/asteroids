@@ -3,11 +3,26 @@ import { connect } from 'react-redux';
 import Ship from './Ship.jsx';
 
 export default class Board extends React.Component {
+  styles() {
+    return {
+      width: `${this.props.board.width}px`,
+      height: `${this.props.board.height}px`,
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+      background: 'black'
+    }
+  }
+
   render() {
     return (
-      <div {...this.props}>
+      <div style={this.styles()} {...this.props}>
         <Ship />
       </div>
     );
   }
 }
+
+export default connect(state => ({ board: state.board }))(Board)

@@ -3,14 +3,16 @@ import { connect } from 'react-redux';
 
 class Ship extends React.Component {
   styles() {
+    const shipPlacement = this.props.board.shipPlacement();
+
     return {
       background: 'white',
       width: '20px',
       height: '20px',
       position: 'absolute',
-      top: this.props.ship.y,
-      left: this.props.ship.x,
-      transform: `rotate(${this.props.ship.direction}deg)`
+      top: shipPlacement.top,
+      left: shipPlacement.left,
+      transform: `rotate(${shipPlacement.direction}deg)`
     };
 
   }
@@ -20,4 +22,4 @@ class Ship extends React.Component {
   }
 }
 
-export default connect(state => ({ ship: state.ship }))(Ship)
+export default connect(state => ({ board: state.board }))(Ship)

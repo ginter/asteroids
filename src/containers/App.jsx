@@ -4,17 +4,6 @@ import { connect } from 'react-redux';
 import Board from '../components/Board.jsx';
 import { moveShipForward, moveShipBackward, turnShipRight, turnShipLeft } from '../actions';
 
-const styles = {
-  width: '100%',
-  height: '100%',
-  position: 'absolute',
-  top: 0,
-  right: 0,
-  bottom: 0,
-  left: 0,
-  background: 'black'
-};
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -27,7 +16,7 @@ class App extends React.Component {
   }
 
   render () {
-    return <Board ref='board' contentEditable onKeyDown={this.handleKeyDown} style={styles}/>;
+    return <Board ref='board' contentEditable onKeyDown={this.handleKeyDown}/>;
   }
 
   handleKeyDown(e) {
