@@ -6,9 +6,10 @@ class Ship extends React.Component {
     const shipPlacement = this.props.board.shipPlacement();
 
     return {
-      background: 'white',
-      width: '20px',
-      height: '20px',
+      fontSize: '25px',
+      color: 'white',
+      width: '25px',
+      height: '25px',
       position: 'absolute',
       top: shipPlacement.top,
       left: shipPlacement.left,
@@ -18,7 +19,7 @@ class Ship extends React.Component {
   }
 
   render() {
-    return <div style={this.styles()}></div>;
+    return <div style={this.styles()} contentEditable={false}>></div>;
   }
 }
 

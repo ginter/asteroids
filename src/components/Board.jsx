@@ -12,7 +12,8 @@ export default class Board extends React.Component {
       right: 0,
       bottom: 0,
       left: 0,
-      background: 'black'
+      background: 'black',
+      color: 'transparent'
     }
   }
 
