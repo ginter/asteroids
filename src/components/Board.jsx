@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import SpeedControl from './SpeedControl.jsx';
 import Ship from './Ship.jsx';
 import Asteroid from './Asteroid.jsx';
-import SpeedControl from './SpeedControl.jsx';
+import Bullet from './Bullet.jsx';
 
 export default class Board extends React.Component {
   styles() {
@@ -23,9 +24,10 @@ export default class Board extends React.Component {
   render() {
     return (
       <div style={this.styles()} {...this.props}>
+        <SpeedControl/>
         <Ship/>
         {this.props.board.asteroids.map(a => <Asteroid key={a.id} asteroid={a}/>)}
-        <SpeedControl/>
+        {this.props.board.bullets.map(b => <Bullet key={b.id} bullet={b}/>)}
         <a
           contentEditable={false}
           style={{ color: 'white', position: 'absolute', right: 0, bottom: 0 }}

@@ -32,12 +32,12 @@ class App extends React.Component {
 
   handleKeyDown(e) {
     const { dispatch } = this.props;
-    dispatch(keyDown(e.key));
+    dispatch(keyDown(e.keyCode));
   }
 
   handleKeyUp(e) {
     const { dispatch } = this.props;
-    dispatch(keyUp(e.key));
+    dispatch(keyUp(e.keyCode));
   }
 
   handleTick() {

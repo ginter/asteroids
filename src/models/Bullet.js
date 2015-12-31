@@ -1,12 +1,13 @@
 import { degToRad } from '../helpers/degToRad.js';
 
-export default class Asteroid {
-  constructor(placement) {
+export default class Bullet {
+  constructor(placement, timestamp=Date.now()) {
     this.id = Math.random();
     this.x = placement.x;
     this.y = placement.y;
     this.speed = placement.speed;
     this.direction = placement.direction;
+    this.timestamp = timestamp;
   }
 
   getPlacement() {
@@ -20,6 +21,6 @@ export default class Asteroid {
       speed: this.speed,
       direction: this.direction
     };
-    return new Asteroid(newPlacement);
+    return new Bullet(newPlacement, this.timestamp);
   }
 }

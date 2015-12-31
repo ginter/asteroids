@@ -1,5 +1,12 @@
 import Board from './Board.js';
 
+const SPACE_BAR = 32;
+const ARROW_LEFT = 37;
+const ARROW_UP = 38;
+const ARROW_RIGHT = 39;
+const ARROW_DOWN = 40;
+const FIRING_DELAY = 350;
+
 export default class Game {
   constructor(board=new Board(), pressedKeys={}) {
     this.board = board;
@@ -35,14 +42,21 @@ export default class Game {
   updateBoard() {
     let board = this.board;
 
-    if (this.pressedKeys['ArrowRight']) board = board.turnShipRight();
-    if (this.pressedKeys['ArrowLeft']) board = board.turnShipLeft();
-    if (this.pressedKeys['ArrowUp']) board = board.moveShipForward();
-    if (this.pressedKeys['ArrowDown']) board = board.moveShipBackward();
+    if (this.pressedKeys[SPACE_BAR] && this.isAbleToFire()) board = board.fireBullet();
+    if (this.pressedKeys[ARROW_RIGHT]) board = board.turnShipRight();
+    if (this.pressedKeys[ARROW_LEFT]) board = board.turnShipLeft();
+    if (this.pressedKeys[ARROW_UP]) board = board.moveShipForward();
+    if (this.pressedKeys[ARROW_DOWN]) board = board.moveShipBackward();
 
     board = board.spawnAsteroids();
     board = board.moveAsteroidsForward();
+    board = board.moveBulletsForward();
 
     return board;
+  }
+
+  isAbleToFire() {
+    if (!this.board.bullets.length) return true;
+    return this.board.bullets[this.board.bullets.length-1].timestamp <= Date.now() - FIRING_DELAY;
   }
 }
