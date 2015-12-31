@@ -1,5 +1,5 @@
 #!/bin/bash
 
 webpack
-aws s3 cp index.html s3://chrisginter.com/index.html --region 'us-west-1'
-aws s3 cp bundle.js s3://chrisginter.com/bundle.js --region 'us-west-1'
+aws s3 cp index.html s3://www.chrisginter.com/index.html --region 'us-west-1'
+aws s3 cp bundle.js s3://www.chrisginter.com/bundle.js --region 'us-west-1'
