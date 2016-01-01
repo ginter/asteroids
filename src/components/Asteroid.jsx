@@ -7,8 +7,8 @@ class Asteroid extends React.Component {
     const placement = this.props.board.asteroidPlacement(this.props.asteroid);
 
     return {
-      width: '25px',
-      height: '25px',
+      width: `${this.props.asteroid.size}px`,
+      height: `${this.props.asteroid.size}px`,
       border: '1px solid white',
       position: 'absolute',
       top: placement.top,

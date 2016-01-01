@@ -1,5 +1,7 @@
 import { degToRad } from '../helpers/degToRad.js';
 
+const DEFAULT_SIZE = 3;
+
 export default class Bullet {
   constructor(placement, timestamp=Date.now()) {
     this.id = Math.random();
@@ -8,6 +10,7 @@ export default class Bullet {
     this.speed = placement.speed;
     this.direction = placement.direction;
     this.timestamp = timestamp;
+    this.size = DEFAULT_SIZE;
   }
 
   getPlacement() {

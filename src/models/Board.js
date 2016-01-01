@@ -3,6 +3,7 @@ import Asteroid from './Asteroid.js';
 import Bullet from './Bullet.js';
 
 const MAX_ASTEROID_COUNT = 10;
+const BULLET_SPEED_MULTIPLIER = 1.5;
 
 function wrap(coord, max) {
   coord = coord % max;
@@ -87,10 +88,10 @@ export default class Board {
 
   fireBullet() {
     let bullet = new Bullet({
-      x: this.ship.x,
-      y: this.ship.y,
-      direction: this.ship.direction,
-      speed: this.ship.speed*1.5
+      x: wrap(this.ship.x, this.width),
+      y: wrap(this.ship.y, this.height),
+      speed: this.ship.speed*BULLET_SPEED_MULTIPLIER,
+      direction: this.ship.direction
     });
 
     return new Board(this.width, this.height, this.ship, this.asteroids, this.bullets.concat([bullet]));
@@ -104,5 +105,31 @@ export default class Board {
   isInBounds(obj) {
     let { x, y } = obj.getPlacement();
     return x > 0 && y > 0 && x < this.width && y < this.height;
+  }
+
+  handleCollisions() {
+    return this.bullets.reduce((board, bullet) => board.handleCollision(bullet), this);
+  }
+
+  handleCollision(bullet) {
+    let collided = false;
+    let asteroids = this.asteroids.reduce((list, asteroid) => {
+      if (!this.hasCollided(bullet, asteroid)) return list.concat(asteroid);
+      collided = true;
+      return list.concat(asteroid.split());
+    }, []);
+    let bullets = collided ? this.bullets.filter((b) => b !== bullet) : this.bullets;
+
+    return new Board(this.width, this.height, this.ship, asteroids, bullets);
+  }
+
+  hasCollided(bullet, asteroid) {
+    const bulletX = wrap(bullet.x, this.width);
+    const bulletY = wrap(bullet.y, this.height);
+    const asteroidX = wrap(asteroid.x, this.width);
+    const asteroidY = wrap(asteroid.y, this.height);
+
+    return (bulletX > asteroidX && bulletX < (asteroidX + asteroid.size)) &&
+      (bulletY > asteroidY && bulletY < (asteroidY + asteroid.size))
   }
 }

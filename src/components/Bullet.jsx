@@ -7,8 +7,8 @@ class Bullet extends React.Component {
     const placement = this.props.board.bulletPlacement(this.props.bullet);
 
     return {
-      width: '3px',
-      height: '3px',
+      width: `${this.props.bullet.size}px`,
+      height: `${this.props.bullet.size}px`,
       backgroundColor: 'white',
       borderRadius: '50%',
       position: 'absolute',

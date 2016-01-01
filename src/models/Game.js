@@ -48,11 +48,11 @@ export default class Game {
     if (this.pressedKeys[ARROW_UP]) board = board.moveShipForward();
     if (this.pressedKeys[ARROW_DOWN]) board = board.moveShipBackward();
 
-    board = board.spawnAsteroids();
-    board = board.moveAsteroidsForward();
-    board = board.moveBulletsForward();
-
-    return board;
+    return board.
+      handleCollisions().
+      spawnAsteroids().
+      moveAsteroidsForward().
+      moveBulletsForward()
   }
 
   isAbleToFire() {
