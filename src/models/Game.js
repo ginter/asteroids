@@ -6,6 +6,7 @@ const ARROW_UP = 38;
 const ARROW_RIGHT = 39;
 const ARROW_DOWN = 40;
 const FIRING_DELAY = 350;
+const POINTS_PER_COLLISION = 10;
 
 export default class Game {
   constructor(board=new Board(), pressedKeys={}) {
@@ -15,6 +16,10 @@ export default class Game {
 
   tick() {
     return new Game(this.updateBoard(), this.pressedKeys)
+  }
+
+  score() {
+    return this.board.runningCollisions * POINTS_PER_COLLISION;
   }
 
   pressKey(key) {

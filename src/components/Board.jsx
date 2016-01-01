@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Score from './Score.jsx';
 import SpeedControl from './SpeedControl.jsx';
 import Ship from './Ship.jsx';
 import Asteroid from './Asteroid.jsx';
@@ -24,6 +25,7 @@ export default class Board extends React.Component {
   render() {
     return (
       <div style={this.styles()} {...this.props}>
+        <Score/>
         <SpeedControl/>
         <Ship/>
         {this.props.board.asteroids.map(a => <Asteroid key={a.id} asteroid={a}/>)}

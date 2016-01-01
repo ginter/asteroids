@@ -13,12 +13,13 @@ function wrap(coord, max) {
 }
 
 export default class Board {
-  constructor(width=window.innerWidth, height=window.innerHeight, ship=new Ship(), asteroids=[], bullets=[]){
-    this.width = width;
-    this.height = height;
-    this.ship = ship;
-    this.asteroids = asteroids;
-    this.bullets = bullets;
+  constructor(opts={}) {
+    this.width = opts.width || window.innerWidth;
+    this.height = opts.height || window.innerHeight;
+    this.ship = opts.ship || new Ship();
+    this.asteroids = opts.asteroids || [];
+    this.bullets = opts.bullets || [];
+    this.runningCollisions = opts.runningCollisions || 0;
   }
 
   shipPlacement() {
@@ -31,27 +32,69 @@ export default class Board {
   }
 
   moveShipForward() {
-    return new Board(this.width, this.height, this.ship.moveForward(), this.asteroids, this.bullets);
+    return new Board({
+      width: this.width,
+      height: this.height,
+      ship: this.ship.moveForward(),
+      asteroids: this.asteroids,
+      bullets: this.bullets,
+      runningCollisions: this.runningCollisions
+    });
   }
 
   moveShipBackward() {
-    return new Board(this.width, this.height, this.ship.moveBackward(), this.asteroids, this.bullets);
+    return new Board({
+      width: this.width,
+      height: this.height,
+      ship: this.ship.moveBackward(),
+      asteroids: this.asteroids,
+      bullets: this.bullets,
+      runningCollisions: this.runningCollisions
+    });
   }
 
   turnShipLeft() {
-    return new Board(this.width, this.height, this.ship.turnLeft(), this.asteroids, this.bullets);
+    return new Board({
+      width: this.width,
+      height: this.height,
+      ship: this.ship.turnLeft(),
+      asteroids: this.asteroids,
+      bullets: this.bullets,
+      runningCollisions: this.runningCollisions
+    });
   }
 
   turnShipRight() {
-    return new Board(this.width, this.height, this.ship.turnRight(), this.asteroids, this.bullets);
+    return new Board({
+      width: this.width,
+      height: this.height,
+      ship: this.ship.turnRight(),
+      asteroids: this.asteroids,
+      bullets: this.bullets,
+      runningCollisions: this.runningCollisions
+    });
   }
 
   increaseShipSpeed() {
-    return new Board(this.width, this.height, this.ship.increaseSpeed(), this.asteroids, this.bullets);
+    return new Board({
+      width: this.width,
+      height: this.height,
+      ship: this.ship.increaseSpeed(),
+      asteroids: this.asteroids,
+      bullets: this.bullets,
+      runningCollisions: this.runningCollisions
+    });
   }
 
   decreaseShipSpeed() {
-    return new Board(this.width, this.height, this.ship.decreaseSpeed(), this.asteroids, this.bullets);
+    return new Board({
+      width: this.width,
+      height: this.height,
+      ship: this.ship.decreaseSpeed(),
+      asteroids: this.asteroids,
+      bullets: this.bullets,
+      runningCollisions: this.runningCollisions
+    });
   }
 
   hasMaxAsteroids() {
@@ -73,12 +116,26 @@ export default class Board {
       speed: Math.random()
     });
 
-    return new Board(this.width, this.height, this.ship, this.asteroids.concat([asteroid]), this.bullets);
+    return new Board({
+      width: this.width,
+      height: this.height,
+      ship: this.ship,
+      asteroids: this.asteroids.concat([asteroid]),
+      bullets: this.bullets,
+      runningCollisions: this.runningCollisions
+    });
   }
 
   moveAsteroidsForward() {
     const asteroids = this.asteroids.map(a => a.moveForward());
-    return new Board(this.width, this.height, this.ship, asteroids, this.bullets);
+    return new Board({
+      width: this.width,
+      height: this.height,
+      ship: this.ship,
+      asteroids: asteroids,
+      bullets: this.bullets,
+      runningCollisions: this.runningCollisions
+    });
   }
 
   bulletPlacement(bullet) {
@@ -94,12 +151,26 @@ export default class Board {
       direction: this.ship.direction
     });
 
-    return new Board(this.width, this.height, this.ship, this.asteroids, this.bullets.concat([bullet]));
+    return new Board({
+      width: this.width,
+      height: this.height,
+      ship: this.ship,
+      asteroids: this.asteroids,
+      bullets: this.bullets.concat([bullet]),
+      runningCollisions: this.runningCollisions
+    });
   }
 
   moveBulletsForward() {
     const bullets = this.bullets.map(b => b.moveForward()).filter(b => this.isInBounds(b));
-    return new Board(this.width, this.height, this.ship, this.asteroids, bullets);
+    return new Board({
+      width: this.width,
+      height: this.height,
+      ship: this.ship,
+      asteroids: this.asteroids,
+      bullets: bullets,
+      runningCollisions: this.runningCollisions
+    });
   }
 
   isInBounds(obj) {
@@ -120,7 +191,14 @@ export default class Board {
     }, []);
     let bullets = collided ? this.bullets.filter((b) => b !== bullet) : this.bullets;
 
-    return new Board(this.width, this.height, this.ship, asteroids, bullets);
+    return new Board({
+      width: this.width,
+      height: this.height,
+      ship: this.ship,
+      asteroids: asteroids,
+      bullets: bullets,
+      runningCollisions: collided ? ++this.runningCollisions : this.runningCollisions
+    });
   }
 
   hasCollided(obj, asteroid) {
