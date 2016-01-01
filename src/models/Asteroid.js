@@ -1,10 +1,10 @@
 import { degToRad } from '../helpers/degToRad.js';
 
-const DEFAULT_SIZE = 25;
+const DEFAULT_SIZE = 100;
 const MIN_SIZE = 8;
 
 export default class Asteroid {
-  constructor(placement, size=DEFAULT_SIZE) {
+  constructor(placement, size=Math.max(DEFAULT_SIZE*Math.random(), MIN_SIZE)) {
     this.id = Math.random();
     this.x = placement.x;
     this.y = placement.y;

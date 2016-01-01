@@ -2,7 +2,7 @@ import Ship from './Ship.js';
 import Asteroid from './Asteroid.js';
 import Bullet from './Bullet.js';
 
-const MAX_ASTEROID_COUNT = 10;
+const MAX_ASTEROID_COUNT = 8;
 const BULLET_SPEED_MULTIPLIER = 1.5;
 
 function wrap(coord, max) {
@@ -19,7 +19,7 @@ export default class Board {
     this.ship = opts.ship || new Ship();
     this.asteroids = opts.asteroids || [];
     this.bullets = opts.bullets || [];
-    this.runningCollisions = opts.runningCollisions || 0;
+    this.runningCollisions = opts.runningCollisions || [];
   }
 
   shipPlacement() {
@@ -113,7 +113,7 @@ export default class Board {
       x: Math.random() * this.width,
       y: Math.random() * this.height,
       direction: Math.random() * 360,
-      speed: Math.random() * Math.pow(Math.max(this.runningCollisions, 1), .33)
+      speed: Math.random() * Math.pow(Math.max(this.runningCollisions.length, 1), .33)
     });
 
     return new Board({
@@ -186,7 +186,7 @@ export default class Board {
     let collided = false;
     let asteroids = this.asteroids.reduce((list, asteroid) => {
       if (!this.hasCollided(bullet, asteroid)) return list.concat(asteroid);
-      collided = true;
+      collided = asteroid.size;
       return list.concat(asteroid.split());
     }, []);
     let bullets = collided ? this.bullets.filter((b) => b !== bullet) : this.bullets;
@@ -197,7 +197,7 @@ export default class Board {
       ship: this.ship,
       asteroids: asteroids,
       bullets: bullets,
-      runningCollisions: collided ? ++this.runningCollisions : this.runningCollisions
+      runningCollisions: collided ? this.runningCollisions.concat(collided) : this.runningCollisions
     });
   }
 

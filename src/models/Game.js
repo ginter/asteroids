@@ -6,7 +6,7 @@ const ARROW_UP = 38;
 const ARROW_RIGHT = 39;
 const ARROW_DOWN = 40;
 const FIRING_DELAY = 350;
-const POINTS_PER_COLLISION = 10;
+const POINTS_PER_COLLISION = 100;
 
 export default class Game {
   constructor(board=new Board(), pressedKeys={}) {
@@ -19,7 +19,7 @@ export default class Game {
   }
 
   score() {
-    return this.board.runningCollisions * POINTS_PER_COLLISION;
+    return Math.ceil(this.board.runningCollisions.reduce((s, c) => s + POINTS_PER_COLLISION/c, 0))
   }
 
   pressKey(key) {
