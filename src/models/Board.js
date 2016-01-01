@@ -113,7 +113,7 @@ export default class Board {
       x: Math.random() * this.width,
       y: Math.random() * this.height,
       direction: Math.random() * 360,
-      speed: Math.random()
+      speed: Math.random() * Math.pow(Math.max(this.runningCollisions, 1), .33)
     });
 
     return new Board({
