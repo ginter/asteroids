@@ -47,16 +47,23 @@ export default class Game {
     if (this.pressedKeys[ARROW_LEFT]) board = board.turnShipLeft();
     if (this.pressedKeys[ARROW_UP]) board = board.moveShipForward();
     if (this.pressedKeys[ARROW_DOWN]) board = board.moveShipBackward();
+    if (this.isGameOver()) board = new Board();
 
     return board.
       handleCollisions().
       spawnAsteroids().
       moveAsteroidsForward().
-      moveBulletsForward()
+      moveBulletsForward();
   }
 
   isAbleToFire() {
-    if (!this.board.bullets.length) return true;
-    return this.board.bullets[this.board.bullets.length-1].timestamp <= Date.now() - FIRING_DELAY;
+    let bullets = this.board.bullets;
+
+    if (!bullets.length) return true;
+    return bullets[bullets.length-1].timestamp <= Date.now() - FIRING_DELAY;
+  }
+
+  isGameOver() {
+    return this.board.asteroids.some((a) => this.board.hasCollided(this.board.ship, a));
   }
 }

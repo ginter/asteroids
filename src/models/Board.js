@@ -123,13 +123,13 @@ export default class Board {
     return new Board(this.width, this.height, this.ship, asteroids, bullets);
   }
 
-  hasCollided(bullet, asteroid) {
-    const bulletX = wrap(bullet.x, this.width);
-    const bulletY = wrap(bullet.y, this.height);
+  hasCollided(obj, asteroid) {
+    const objX = wrap(obj.x, this.width);
+    const objY = wrap(obj.y, this.height);
     const asteroidX = wrap(asteroid.x, this.width);
     const asteroidY = wrap(asteroid.y, this.height);
 
-    return (bulletX > asteroidX && bulletX < (asteroidX + asteroid.size)) &&
-      (bulletY > asteroidY && bulletY < (asteroidY + asteroid.size))
+    return (objX > asteroidX && objX < (asteroidX + asteroid.size)) &&
+      (objY > asteroidY && objY < (asteroidY + asteroid.size))
   }
 }
