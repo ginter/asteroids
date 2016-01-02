@@ -6,10 +6,10 @@ class Ship extends React.Component {
     const shipPlacement = this.props.board.shipPlacement();
 
     return {
-      fontSize: '25px',
+      fontSize: `${shipPlacement.size}px`,
       color: 'white',
-      width: '25px',
-      height: '25px',
+      width: '1px',
+      height: '1px',
       position: 'absolute',
       top: shipPlacement.top,
       left: shipPlacement.left,
@@ -18,7 +18,13 @@ class Ship extends React.Component {
   }
 
   render() {
-    return <div style={this.styles()} contentEditable={false}>></div>;
+    return(
+      <div style={this.styles()} contentEditable={false}>
+        <span style={{ fontSize: '25px', position: 'relative', top: '-13px', right: '10px' }}>
+          >
+        </span>
+      </div>
+    );
   }
 }
 
