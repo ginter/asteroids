@@ -207,7 +207,15 @@ export default class Board {
     const asteroidX = wrap(asteroid.x, this.width);
     const asteroidY = wrap(asteroid.y, this.height);
 
-    return (objX > asteroidX && objX < (asteroidX + asteroid.size)) &&
-      (objY > asteroidY && objY < (asteroidY + asteroid.size))
+    return(
+      ((objX > asteroidX && objX < (asteroidX + asteroid.size)) &&
+       (objY > asteroidY && objY < (asteroidY + asteroid.size))) ||
+      ((objX + obj.size > asteroidX && objX + obj.size < (asteroidX + asteroid.size)) &&
+       (objY > asteroidY && objY < (asteroidY + asteroid.size))) ||
+      ((objX > asteroidX && objX < (asteroidX + asteroid.size)) &&
+       (objY + obj.size > asteroidY && objY + obj.size < (asteroidY + asteroid.size))) ||
+      ((objX + obj.size > asteroidX && objX + obj.size < (asteroidX + asteroid.size)) &&
+       (objY + obj.size > asteroidY && objY + obj.size < (asteroidY + asteroid.size)))
+    );
   }
 }

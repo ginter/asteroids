@@ -1,6 +1,7 @@
 import { degToRad } from '../helpers/degToRad.js';
 
 const defaultPlacement = { x: 0, y: 0, direction: 45, speed: 5 };
+const defaultSize = 15;
 const maxSpeed = 25;
 const minSpeed = 1;
 
@@ -10,6 +11,7 @@ export default class Ship {
     this.y = placement.y;
     this.speed = placement.speed;
     this.direction = placement.direction;
+    this.size = defaultSize;
   }
 
   getPlacement() {
