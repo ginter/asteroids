@@ -2,7 +2,7 @@ import Ship from './Ship.js';
 import Asteroid from './Asteroid.js';
 import Bullet from './Bullet.js';
 
-const MAX_ASTEROID_COUNT = 8;
+const MAX_ASTEROID_COUNT = 12;
 const BULLET_SPEED_MULTIPLIER = 1.5;
 
 function wrap(coord, max) {
@@ -127,7 +127,7 @@ export default class Board {
   }
 
   moveAsteroidsForward() {
-    const asteroids = this.asteroids.map(a => a.moveForward());
+    const asteroids = this.asteroids.map(a => a.moveForward()).filter(a => this.isInBounds(a));
     return new Board({
       width: this.width,
       height: this.height,
