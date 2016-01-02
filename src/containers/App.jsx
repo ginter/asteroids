@@ -18,7 +18,7 @@ class App extends React.Component {
     el.addEventListener('blur', function(e) { setTimeout(() => this.focus(), 1) }, true);
     el.focus();
 
-    window.requestAnimationFrame(this.handleTick);
+    this.handleTick();
   }
 
   render () {
