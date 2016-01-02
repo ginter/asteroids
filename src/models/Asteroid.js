@@ -11,6 +11,8 @@ export default class Asteroid {
     this.speed = placement.speed;
     this.direction = placement.direction;
     this.size = size;
+    this.width = size;
+    this.height = size;
   }
 
   getPlacement() {

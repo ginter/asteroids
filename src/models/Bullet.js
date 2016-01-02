@@ -11,6 +11,8 @@ export default class Bullet {
     this.direction = placement.direction;
     this.timestamp = timestamp;
     this.size = DEFAULT_SIZE;
+    this.width = DEFAULT_SIZE;
+    this.height = DEFAULT_SIZE;
   }
 
   getPlacement() {

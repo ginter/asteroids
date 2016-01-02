@@ -5,13 +5,6 @@ import Bullet from './Bullet.js';
 const MAX_ASTEROID_COUNT = 12;
 const BULLET_SPEED_MULTIPLIER = 1.5;
 
-function wrap(coord, max) {
-  coord = coord % max;
-  if (coord < 0) coord = max + coord;
-
-  return coord;
-}
-
 export default class Board {
   constructor(opts={}) {
     this.width = opts.width || window.innerWidth;
@@ -24,7 +17,7 @@ export default class Board {
 
   shipPlacement() {
     let { x, y, direction } = this.ship.getPlacement();
-    return { left: wrap(x, this.width), top: wrap(y, this.height), direction: direction };
+    return { left: x, top: y, direction: direction };
   }
 
   shipSpeed() {
@@ -35,7 +28,7 @@ export default class Board {
     return new Board({
       width: this.width,
       height: this.height,
-      ship: this.ship.moveForward(),
+      ship: this.ship.moveForward(this.width, this.height),
       asteroids: this.asteroids,
       bullets: this.bullets,
       runningCollisions: this.runningCollisions
@@ -46,7 +39,7 @@ export default class Board {
     return new Board({
       width: this.width,
       height: this.height,
-      ship: this.ship.moveBackward(),
+      ship: this.ship.moveBackward(this.width, this.height),
       asteroids: this.asteroids,
       bullets: this.bullets,
       runningCollisions: this.runningCollisions
@@ -103,7 +96,7 @@ export default class Board {
 
   asteroidPlacement(asteroid) {
     let { x, y, direction } = asteroid.getPlacement();
-    return { left: wrap(x, this.width), top: wrap(y, this.height), direction: direction };
+    return { left: x, top: y, direction: direction };
   }
 
   spawnAsteroids() {
@@ -140,13 +133,13 @@ export default class Board {
 
   bulletPlacement(bullet) {
     let { x, y, direction } = bullet.getPlacement();
-    return { left: wrap(x, this.width), top: wrap(y, this.height), direction: direction };
+    return { left: x, top: y, direction: direction };
   }
 
   fireBullet() {
     let bullet = new Bullet({
-      x: wrap(this.ship.x, this.width),
-      y: wrap(this.ship.y, this.height),
+      x: this.ship.x,
+      y: this.ship.y,
       speed: this.ship.speed*BULLET_SPEED_MULTIPLIER,
       direction: this.ship.direction
     });
@@ -174,8 +167,7 @@ export default class Board {
   }
 
   isInBounds(obj) {
-    let { x, y } = obj.getPlacement();
-    return x > 0 && y > 0 && x < this.width && y < this.height;
+    return this.isOverlapping(obj, this);
   }
 
   handleCollisions() {
@@ -185,7 +177,7 @@ export default class Board {
   handleCollision(bullet) {
     let collided = false;
     let asteroids = this.asteroids.reduce((list, asteroid) => {
-      if (!this.hasCollided(bullet, asteroid)) return list.concat(asteroid);
+      if (!this.isOverlapping(bullet, asteroid)) return list.concat(asteroid);
       collided = asteroid.size;
       return list.concat(asteroid.split());
     }, []);
@@ -201,21 +193,21 @@ export default class Board {
     });
   }
 
-  hasCollided(obj, asteroid) {
-    const objX = wrap(obj.x, this.width);
-    const objY = wrap(obj.y, this.height);
-    const asteroidX = wrap(asteroid.x, this.width);
-    const asteroidY = wrap(asteroid.y, this.height);
+  isOverlapping(obj1, obj2) {
+    let obj1X = obj1.x || 0;
+    let obj1Y = obj1.y || 0;
+    let obj2X = obj2.x || 0;
+    let obj2Y = obj2.y || 0;
 
     return(
-      ((objX > asteroidX && objX < (asteroidX + asteroid.size)) &&
-       (objY > asteroidY && objY < (asteroidY + asteroid.size))) ||
-      ((objX + obj.size > asteroidX && objX + obj.size < (asteroidX + asteroid.size)) &&
-       (objY > asteroidY && objY < (asteroidY + asteroid.size))) ||
-      ((objX > asteroidX && objX < (asteroidX + asteroid.size)) &&
-       (objY + obj.size > asteroidY && objY + obj.size < (asteroidY + asteroid.size))) ||
-      ((objX + obj.size > asteroidX && objX + obj.size < (asteroidX + asteroid.size)) &&
-       (objY + obj.size > asteroidY && objY + obj.size < (asteroidY + asteroid.size)))
+      ((obj1X > obj2X && obj1X < (obj2X + obj2.width)) &&
+       (obj1Y > obj2Y && obj1Y < (obj2Y + obj2.height))) ||
+      ((obj1X + obj1.width > obj2X && obj1X + obj1.width < (obj2X + obj2.width)) &&
+       (obj1Y > obj2Y && obj1Y < (obj2Y + obj2.height))) ||
+      ((obj1X > obj2X && obj1X < (obj2X + obj2.width)) &&
+       (obj1Y + obj1.height > obj2Y && obj1Y + obj1.height < (obj2Y + obj2.height))) ||
+      ((obj1X + obj1.width > obj2X && obj1X + obj1.width < (obj2X + obj2.width)) &&
+       (obj1Y + obj1.height > obj2Y && obj1Y + obj1.height < (obj2Y + obj2.height)))
     );
   }
 }

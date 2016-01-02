@@ -5,6 +5,13 @@ const defaultSize = 15;
 const maxSpeed = 25;
 const minSpeed = 1;
 
+function wrap(coord, max) {
+  coord = coord % max;
+  if (coord < 0) coord = max + coord;
+
+  return coord;
+}
+
 export default class Ship {
   constructor(placement = defaultPlacement) {
     this.x = placement.x;
@@ -12,6 +19,8 @@ export default class Ship {
     this.speed = placement.speed;
     this.direction = placement.direction;
     this.size = defaultSize;
+    this.width = defaultSize;
+    this.height = defaultSize;
   }
 
   getPlacement() {
@@ -22,20 +31,20 @@ export default class Ship {
     return Math.sqrt(this.speed);
   }
 
-  moveForward() {
+  moveForward(width, height) {
     const newPlacement = {
-      x: this.x + this.speed*Math.cos(degToRad(this.direction)),
-      y: this.y + this.speed*Math.sin(degToRad(this.direction)),
+      x: wrap(this.x + this.speed*Math.cos(degToRad(this.direction)), width),
+      y: wrap(this.y + this.speed*Math.sin(degToRad(this.direction)), height),
       speed: this.speed,
       direction: this.direction
     };
     return new Ship(newPlacement);
   }
 
-  moveBackward() {
+  moveBackward(width, height) {
     const newPlacement = {
-      x: this.x - this.speed*Math.cos(degToRad(this.direction)),
-      y: this.y - this.speed*Math.sin(degToRad(this.direction)),
+      x: wrap(this.x - this.speed*Math.cos(degToRad(this.direction)), width),
+      y: wrap(this.y - this.speed*Math.sin(degToRad(this.direction)), height),
       speed: this.speed,
       direction: this.direction
     };

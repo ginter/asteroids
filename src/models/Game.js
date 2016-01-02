@@ -69,6 +69,6 @@ export default class Game {
   }
 
   isGameOver() {
-    return this.board.asteroids.some((a) => this.board.hasCollided(this.board.ship, a));
+    return this.board.asteroids.some((a) => this.board.isOverlapping(this.board.ship, a));
   }
 }
