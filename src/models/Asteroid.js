@@ -36,13 +36,13 @@ export default class Asteroid {
         x: this.x,
         y: this.y,
         speed: this.speed,
-        direction: this.direction - 45
+        direction: this.direction - Math.random()*180
       }, this.size / 2),
       new Asteroid({
         x: this.x,
         y: this.y,
         speed: this.speed,
-        direction: this.direction + 45
+        direction: this.direction + Math.random()*180
       }, this.size / 2),
     ];
   }
