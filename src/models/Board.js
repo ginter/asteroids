@@ -102,12 +102,14 @@ export default class Board {
   spawnAsteroids() {
     if (this.hasMaxAsteroids()) return this;
 
-    let asteroid = new Asteroid({
+    let asteroid;
+    do {
+    asteroid = new Asteroid({
       x: Math.random() * this.width,
       y: Math.random() * this.height,
       direction: Math.random() * 360,
       speed: Math.random() * Math.pow(Math.max(this.runningCollisions.length, 1), .33)
-    });
+    }) } while (this.isOverlapping(this.ship, asteroid));
 
     return new Board({
       width: this.width,
